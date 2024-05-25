@@ -9,13 +9,15 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args){
 
         CapturadorDeJson capturarJson = new CapturadorDeJson();
         ConvertidorJsonEnDivisaObjeto convertidorJson = new ConvertidorJsonEnDivisaObjeto();
         Scanner read = new Scanner(System.in);
 
-        String divisaInicial;
+        String divisaInicial, nuevaDivisa, cantidadDivisaInicialAux;
+        double cantidadDivisaInicial, cantidadNuevaDivisa;
+        String opcion = "";
 
         System.out.println();
         System.out.println("_________________________________________________________");
@@ -66,7 +68,7 @@ public class Main {
                     System.out.println("USD: Dolar Estadunidense.");
                     System.out.println();
 
-                    System.out.println("Ingrese el codigo de la divisa que desea convertir.");
+                    System.out.println("Ingrese el codigo de la divisa que desea convertir:");
                     System.out.println("(Ejemplo: USD para Dolar Estadounidense)");
                     divisaInicial = read.nextLine();
                     divisaInicial = divisaInicial.toUpperCase();
@@ -81,6 +83,122 @@ public class Main {
 
                 DivisaObj cambiosDeLaDivisa = convertidorJson.cambiosDivisa(jsonDivisa);
 
+                System.out.println();
+                System.out.println("_________________________________________________________");
+                System.out.println();
+
+                //verificacion de que la cantidad sea una cantidad valida:
+                //(ni negativo, ni cero, ni un tipo de dato que no sea double
+
+                while (true){
+
+                    System.out.println("Ingrese la cantidad de " + divisaInicial + " que " +
+                            "desea convertir:");
+
+                    cantidadDivisaInicialAux = read.nextLine();
+
+                    try{
+
+                        cantidadDivisaInicial
+                                = Double.parseDouble(cantidadDivisaInicialAux);
+
+                        if (cantidadDivisaInicial > 0){
+                            break;
+                        } else {
+
+                            System.out.println
+                                    ("Error: El valor debe ser mayor a cero. Intente de nuevo.");
+                            System.out.println();
+
+                        }
+
+
+                    } catch (NumberFormatException e){
+                        System.out.println
+                                ("Error: Entrada no válida. Por favor, ingrese un número.");
+                        System.out.println();
+                    }
+
+                }
+
+                //FIN VERIFICACION
+
+                System.out.println("A que divisa quiere convertir sus " + cantidadDivisaInicial
+                + " " + divisaInicial + "?");
+                System.out.println();
+                System.out.println("Ten en cuenta que actualmente solo aceptamos las" +
+                        " siguientes divisas:");
+                System.out.println();
+                System.out.println("ARS: Peso Argentino.");
+                System.out.println("BOB: Bolivar Boliviano.");
+                System.out.println("BRL: Real Brasileño.");
+                System.out.println("CLP: Peso Chileno.");
+                System.out.println("COP: Peso Colombiano.");
+                System.out.println("USD: Dolar Estadunidense.");
+                System.out.println();
+
+                nuevaDivisa = read.nextLine();
+                nuevaDivisa = nuevaDivisa.toUpperCase();
+
+                //verificacion de que sea una divisa valida:
+                while (!(nuevaDivisa.equals("ARS") ||
+                        (nuevaDivisa.equals("BOB")) ||
+                        (nuevaDivisa.equals("BRL")) ||
+                        (nuevaDivisa.equals("CLP")) ||
+                        (nuevaDivisa.equals("COP")) ||
+                        (nuevaDivisa.equals("USD"))
+                )){
+
+                    System.out.println("Usted no ingreso un codigo de divisa valido.");
+                    System.out.println("Ten en cuenta que actualmente solo aceptamos las" +
+                            " siguientes divisas:");
+                    System.out.println();
+                    System.out.println("ARS: Peso Argentino.");
+                    System.out.println("BOB: Bolivar Boliviano.");
+                    System.out.println("BRL: Real Brasileño.");
+                    System.out.println("CLP: Peso Chileno.");
+                    System.out.println("COP: Peso Colombiano.");
+                    System.out.println("USD: Dolar Estadunidense.");
+                    System.out.println();
+
+                    System.out.println("A que divisa quiere convertir sus " + cantidadDivisaInicial
+                            + " " + divisaInicial + "?");;
+                    nuevaDivisa = read.nextLine();
+                    nuevaDivisa = nuevaDivisa.toUpperCase();
+
+                }
+
+                cantidadNuevaDivisa = cambiosDeLaDivisa.convertirUnaMonedaHaciaOtra
+                        (cantidadDivisaInicial, nuevaDivisa);
+
+                System.out.println(divisaInicial + " " + cantidadDivisaInicial +
+                        ": " + cantidadNuevaDivisa + " " + nuevaDivisa);
+
+                System.out.println();
+                System.out.println();
+                System.out.println("_________________________________________________________");
+                System.out.println();
+                System.out.println("¿Desea realizar otra conversion o salir del programa?");
+                System.out.println("PRESIONAR 1: Salir del programa.");
+                System.out.println("PRESIONAR 2: Realizar otra conversion.");
+
+                opcion = read.nextLine();
+
+                while ((!(opcion.equalsIgnoreCase("1")))
+                        && (!(opcion.equalsIgnoreCase("2")))){
+
+                    System.out.println("Lo sentimos, usted ingreso un numero de opcion invalido.");
+                    System.out.println();
+                    System.out.println("¿Desea realizar otra conversion o salir del programa?");
+                    System.out.println("PRESIONAR 1: Salir del programa.");
+                    System.out.println("PRESIONAR 2: Realizar otra conversion.");
+                    opcion = read.nextLine();
+
+                }
+
+                if (opcion.equalsIgnoreCase("1")){
+                    break;
+                }
 
 
             } catch (IOException e) {

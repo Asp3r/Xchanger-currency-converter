@@ -75,16 +75,16 @@ public class DivisaObj {
 
     //FUNCIONES --------------------------------------------------------------------
 
-    public double convertirUnaMonedaHaciaOtra (String divisaInicial,
-                                               double valorDivisaInicial,
+    public double convertirUnaMonedaHaciaOtra (double valorDivisaInicial,
                                                String divisaFinal){
 
         //esta variable guarda la equivalencia de a que valor de la divisa final equivale
-        //UNA unidad de la divisa inicial.
-        double valorNeutroDivisaFinal;
+        //UNA unidad de la divisa inicial:
 
-        /*
-        EN CONSTRUCCION:
+        double valorNeutroDivisaFinal = 0; //la iniicalizo para que no de error.
+
+
+        //EN CONSTRUCCION:
 
         switch (divisaFinal){
 
@@ -92,9 +92,29 @@ public class DivisaObj {
                 valorNeutroDivisaFinal = this.ars;
                 break;
 
+            case "BOB":
+                valorNeutroDivisaFinal = this.bob;
+                break;
+
+            case "BRL":
+                valorNeutroDivisaFinal = this.brl;
+                break;
+
+            case "CLP":
+                valorNeutroDivisaFinal = this.clp;
+                break;
+
+            case "COP":
+                valorNeutroDivisaFinal = this.cop;
+                break;
+
+            case "USD":
+                valorNeutroDivisaFinal = this.usd;
+                break;
+
         }
-        */
-        double valorDivisaFinal = valorDivisaInicial*()
+
+        return valorDivisaInicial * valorNeutroDivisaFinal;
 
     }
 
